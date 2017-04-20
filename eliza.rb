@@ -3,8 +3,15 @@
 require 'mastodon'
 require 'pry'
 require 'nokogiri'
+require 'wordnik'
 
 require './script.rb'
+
+Wordnik.configure do |config|
+  config.api_key = 'ea70a61690a8b6d00417242c4bf2496222a195c602710ae28'
+  config.logger = Logger.new('/dev/null')
+end
+
 
 @eliza = Script.new("script.txt")
 @eliza.debug_print = true

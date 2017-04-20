@@ -33,9 +33,11 @@ class Script
     os.puts @final.sample    
   end
 
-  def input(username, input)
-    transform(username, input)
+  def input(username, str)
+    transform(username, str)
   end
+
+# Wordnik.word.get_related(clean, :type => 'synonym').first
   
   def print_script(os = $stdout)
     @initial.each       { |str|      os.puts "initial: #{str}"         }
@@ -216,6 +218,7 @@ private
         s += '\b' if not $2.empty?
         s
       end
+
       # include all synonyms for words starting with @
       regex_str.gsub!(/@(\w+)/) do |m|
         "(#{@synons[$1].join('|')})"
@@ -252,4 +255,11 @@ private
 
     reply
   end
+end
+
+
+if __FILE__ == $0
+  s = Script.new('script.txt')
+  s.debug_print = true
+  s.repl
 end
