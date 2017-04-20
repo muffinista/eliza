@@ -8,6 +8,9 @@ require 'dotenv/load'
 
 require './script.rb'
 
+# http://www.comicartfans.com/gallerypiece.asp?piece=39755
+# https://commons.wikimedia.org/wiki/File:The_doctor_is_in.png
+
 @eliza = Script.new("script.txt")
 @eliza.debug_print = true
 @token = ENV["MASTODON_TOKEN"]
