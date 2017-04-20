@@ -6,3 +6,4 @@ gem "mastodon-api", git:"https://github.com/muffinista/mastodon-api", branch:"st
 
 gem "nokogiri"
 gem "wordnik"
+gem "dotenv"
