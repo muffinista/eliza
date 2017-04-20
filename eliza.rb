@@ -18,19 +18,21 @@ require './script.rb'
 def run!
   client = Mastodon::REST::Client.new(base_url: 'https://botsin.space', bearer_token:@token)
 
+  STDERR.puts "============"
   streaming_client = Mastodon::Streaming::Client.new(base_url: 'https://botsin.space', bearer_token:@token)
   streaming_client.user do |n|
-    next unless n.is_a?(Mastodon::Notification) && n.status?
     puts n.inspect
+    next unless n.is_a?(Mastodon::Notification) && n.status?
 
     #n.account -- Account
     text = Nokogiri::HTML(n.status.content).text
+    STDERR.puts text
 
     next unless text =~ /^@eliza/i
 
     text = text.gsub(/^@eliza/, "").strip
     
-    user = n.account.username
+    user = n.account.acct
     output = @eliza.input(user, text)
 
     STDERR.puts output
@@ -48,8 +50,6 @@ def run!
 
     output = "@#{user} #{output}"
     
-    
-    #def create_status(text, in_reply_to_id = nil, media_ids = [], visibility = nil)  
     response = client.create_status(output, opts[:in_reply_to_id], [], opts[:visibility])
 
     STDERR.puts response.inspect
