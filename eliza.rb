@@ -11,14 +11,16 @@ require './script.rb'
 # http://www.comicartfans.com/gallerypiece.asp?piece=39755
 # https://commons.wikimedia.org/wiki/File:The_doctor_is_in.png
 
+$mutex = Mutex.new
+
 @eliza = Script.new("script.txt")
 @eliza.debug_print = true
 @token = ENV["MASTODON_TOKEN"]
+@last_message_at = Time.now.to_i
 
 def run!
   client = Mastodon::REST::Client.new(base_url: 'https://botsin.space', bearer_token:@token)
 
-  STDERR.puts "============"
   streaming_client = Mastodon::Streaming::Client.new(base_url: 'https://botsin.space', bearer_token:@token)
   streaming_client.user do |n|
     puts n.inspect
@@ -29,6 +31,10 @@ def run!
     STDERR.puts text
 
     next unless text =~ /^@eliza/i
+
+    $mutex.synchronize {
+      @last_message_at = Time.now.to_i
+    }
 
     text = text.gsub(/^@eliza/, "").strip
     
@@ -56,10 +62,42 @@ def run!
   end
 end
 
+def run_bot
+  $mutex.synchronize {
+    @last_message_at = Time.now.to_i
+  }
+
+  streaming_thread = Thread.new {
+    puts "here!"
+    run!
+  }
+
+  check_thread = Thread.new {
+    while(true) do
+      if streaming_thread.nil? || streaming_thread.status == nil || streaming_thread.status == false
+        STDERR.puts "streaming died!"
+        Thread.exit
+      end
+      
+      $mutex.synchronize {
+        if Time.now.to_i - 3600 > @last_message_at
+          STDERR.puts "it's been awhile, let's reboot"
+          Thread.exit
+        end
+      }
+    end
+  }
+ 
+  streaming_thread.run
+  check_thread.join
+end
+
+client = Mastodon::REST::Client.new(base_url: 'https://botsin.space', bearer_token:@token)
+client.create_status("The doctor is in!")
 
 while true
   begin
-    run!
+    run_bot
   rescue StandardError => e
     STDERR.puts e.inspect
     sleep 2
