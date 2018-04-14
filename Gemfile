@@ -4,6 +4,6 @@ source "https://rubygems.org"
 gem "pry"
 gem "mastodon-api", git:"https://github.com/tootsuite/mastodon-api", branch:"master"
 
-gem "nokogiri"
+gem "nokogiri", '~> 1.8.2'
 gem "wordnik"
 gem "dotenv"

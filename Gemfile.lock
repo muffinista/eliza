@@ -1,65 +1,66 @@
 GIT
   remote: https://github.com/tootsuite/mastodon-api
-  revision: 04385988faed858cfabfad2f1aca80be2c456e54
+  revision: 6557c5cc580f611c75da5f77280ec1dc571d08e0
   branch: master
   specs:
-    mastodon-api (1.1.0)
-      addressable (~> 2.4)
+    mastodon-api (1.2.0)
+      addressable (~> 2.5)
       buftok
-      http (~> 2.0)
+      http (~> 3.0)
+      oj (~> 3.3)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    activemodel (5.0.2)
-      activesupport (= 5.0.2)
-    activesupport (5.0.2)
+    activemodel (5.2.0)
+      activesupport (= 5.2.0)
+    activesupport (5.2.0)
       concurrent-ruby (~> 1.0, >= 1.0.2)
-      i18n (~> 0.7)
+      i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-    addressable (2.5.1)
-      public_suffix (~> 2.0, >= 2.0.2)
+    addressable (2.5.2)
+      public_suffix (>= 2.0.2, < 4.0)
     buftok (0.2.0)
-    coderay (1.1.1)
+    coderay (1.1.2)
     concurrent-ruby (1.0.5)
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
-    dotenv (2.2.0)
-    ethon (0.10.1)
+    dotenv (2.2.2)
+    ethon (0.11.0)
       ffi (>= 1.3.0)
-    ffi (1.9.18)
+    ffi (1.9.23)
     htmlentities (4.3.4)
-    http (2.2.2)
+    http (3.0.0)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
-      http-form_data (~> 1.0.1)
+      http-form_data (>= 2.0.0.pre.pre2, < 3)
       http_parser.rb (~> 0.6.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
-    http-form_data (1.0.3)
+    http-form_data (2.1.0)
     http_parser.rb (0.6.0)
-    i18n (0.8.1)
+    i18n (1.0.0)
+      concurrent-ruby (~> 1.0)
     json (2.1.0)
-    method_source (0.8.2)
-    mini_portile2 (2.1.0)
-    minitest (5.10.1)
-    nokogiri (1.7.1)
-      mini_portile2 (~> 2.1.0)
-    pry (0.10.4)
+    method_source (0.9.0)
+    mini_portile2 (2.3.0)
+    minitest (5.11.3)
+    nokogiri (1.8.2)
+      mini_portile2 (~> 2.3.0)
+    oj (3.5.1)
+    pry (0.11.3)
       coderay (~> 1.1.0)
-      method_source (~> 0.8.1)
-      slop (~> 3.4)
-    public_suffix (2.0.5)
-    slop (3.6.0)
+      method_source (~> 0.9.0)
+    public_suffix (3.0.2)
     thread_safe (0.3.6)
-    typhoeus (1.1.2)
+    typhoeus (1.3.0)
       ethon (>= 0.9.0)
-    tzinfo (1.2.3)
+    tzinfo (1.2.5)
       thread_safe (~> 0.1)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.4)
+    unf_ext (0.0.7.5)
     wordnik (4.12)
       activemodel (>= 3.0.3)
       addressable (>= 2.2.4)
@@ -74,9 +75,9 @@ PLATFORMS
 DEPENDENCIES
   dotenv
   mastodon-api!
-  nokogiri
+  nokogiri (~> 1.8.2)
   pry
   wordnik
 
 BUNDLED WITH
-   1.15.4
+   1.16.1
